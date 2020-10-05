@@ -1,0 +1,40 @@
+<script>
+  // Given a binary tree, find its minimum depth.
+  class Leaf {
+    constructor(value) {
+      this.value = value
+      this.isBranch = false
+    }
+  }
+  class Branch {
+    constructor(left, right) {
+      this.left = left
+      this.right = right
+      this.isBranch = true
+    }
+  }
+
+  function minDepth(tree, accum = 0) {
+    if(tree.isBranch) {
+      leftDepth  = minDepth(tree.left, accum + 1);
+      rightDepth = minDepth(tree.right, accum + 1);
+
+      if(leftDepth < rightDepth) { return leftDepth; }
+      else                       { return rightDepth; }
+    } else { return accum; }
+  }
+
+  var b = new Branch(
+    new Branch(
+      new Branch(
+        new Leaf(1),
+        new Branch(
+          new Leaf(2),
+          new Leaf(3))),
+      new Leaf(4)),
+    new Branch(
+      new Leaf(5),
+      new Leaf(6)))
+
+  console.log(minDepth(b))
+</script>
